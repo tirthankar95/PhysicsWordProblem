@@ -1,0 +1,72 @@
+{
+     "topic": "simple laws of motion",
+     "equations": [
+          "v = u + a * t",
+          "S = u * t + 0.5 * a * t",
+          "F = m * a"
+     ],
+     "variable_names": {
+          "v": [
+               "final velocity",
+               [
+                    0,
+                    100
+               ],
+               "m/s"
+          ],
+          "u": [
+               "initial velocity",
+               [
+                    0,
+                    100
+               ],
+               "m/s"
+          ],
+          "a": [
+               "acceleration",
+               [
+                    0,
+                    100
+               ],
+               "ms^-2"
+          ],
+          "t": [
+               "time",
+               [
+                    1,
+                    100
+               ],
+               "s"
+          ],
+          "S": [
+               "distance",
+               [
+                    0,
+                    100
+               ],
+               "m"
+          ],
+          "g": [
+               "acceleration due to gravity",
+               10,
+               "ms^-2"
+          ],
+          "F": [
+               "force",
+               [
+                    1,
+                    100
+               ],
+               "N"
+          ],
+          "m": [
+               "mass",
+               [
+                    1,
+                    100
+               ],
+               "kg"
+          ]
+     },
+     "question_bank": []
+}
