@@ -1,4 +1,4 @@
-from transformers  import  AutoTokenizer, AutoModelForCausalLM 
+from transformers import  AutoTokenizer, AutoModelForCausalLM 
 from colorama import Style, Fore, Back 
 
 model = AutoModelForCausalLM.from_pretrained("gpt2")
@@ -13,4 +13,3 @@ def get_question(prompt):
         max_length=100,
     )
     return tokenizer.batch_decode(gen_tokens)[0]
-    

@@ -32,12 +32,22 @@ def update_data(filename, data):
     with open(f"{filename}", "w") as file:
         json.dump(data, file, indent=5)
 
+def get_solution(soln):
+    soln = set(soln)
+    solution = ""
+    for idx, soln_id in enumerate(soln):
+        if idx == 0: solution = data["equations"][soln_id]
+        else: solution += ", " + data["equations"][soln_id]
+    return solution
+
 if __name__ == '__main__':
     TRIALS = 5
     with open("simple_motion.json") as file:
         data = json.load(file)
     for _ in range(TRIALS):
         problem, soln = generate_question_variables(data)
+        print(f'{Fore.MAGENTA}[PROMPT] {problem}{Style.RESET_ALL}')
+        print(f'{Fore.CYAN}[Soln] {get_solution(soln)}{Style.RESET_ALL}')
         problem = get_question(problem)
         print(f'{Style.BRIGHT}{Fore.CYAN}Is this question valid[y/n]?\n{Fore.GREEN}{problem}')
         print('\n' + f'{Fore.BLACK}{Back.WHITE}--'*30 + f'{Style.RESET_ALL}' + '\n')
