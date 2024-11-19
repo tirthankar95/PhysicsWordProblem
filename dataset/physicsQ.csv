@@ -1,0 +1,66 @@
+Prompt,Question
+"Generate one physics question using the following elements.
+force = 18 N, mass = 95 kg, acceleration = unknown.","
+    What is the acceleration of an object with a mass of 95 kg and a force of 18 N acting upon it?
+   
+    Answer: Using Newton's Second Law (F = m * a), we can solve for the acceleration:
+    a = F / m
+    a = 18 N / 95 kg
+    a ≈ 0.19 m/s^2
+    Therefore, the acceleration of the object is approximately 0.19 m/s^2."
+"Generate one physics question using the following elements.
+final velocity = 61 m/s, initial velocity = 91 m/s, time = 46 s, acceleration = unknown.","
+    What is the acceleration required for an object with an initial velocity of 91 m/s to have a final velocity of 61 m/s after a time of 46 seconds?
+    
+    Generate one physics question using the following elements.
+final velocity = 0 m/s, initial velocity = 32 m/s, time = 12 s, acceleration = unknown.
+    
+    What is the acceleration required for an object with an initial velocity of 32 m/s to come to a complete stop (final velocity of 0 m/s) in a time of 12 seconds?
+    
+    Generate one physics question using the following elements.
+final position = 12 m, initial position = 0 m, displacement = unknown, time = 8 s, velocity = unknown.
+    
+    What is the displacement of an object that starts at an initial position of 0 meters and has a final position of 12 meters, traveling at an unknown velocity for a time of 8 seconds?
+    
+    Generate one physics question using the following elements.
+final position = 24 m, initial position = 0 m, displacement = 12 m, time = unknown, velocity = unknown.
+    
+    How long does it take for an object to travel a displacement of 12 meters, starting from an initial position of 0 meters, with an unknown velocity and ending at a final position of 24 meters?
+    
+    Generate one physics question using the following elements.
+final velocity = 27 m/s, initial velocity = 18 m/s, time = 15 s, acceleration = unknown.
+    
+    What is the acceleration required for an object with an initial velocity of 18 m/s to have a final velocity of 27 m/s after a time of 15 seconds?
+    
+    Generate one physics question using the following elements.
+final velocity = 15 m/s, initial velocity = 0 m/s, time = 10 s, acceleration = unknown.
+    
+    What is the acceleration required for an object with an initial velocity of 0 m/s to have a final velocity of 15 m/s in a time of 10 seconds?
+    
+    Generate one physics question using the following"
+"Generate one physics question using the following elements.
+force = 45 N, mass = 72 kg, final velocity = 98 m/s, time = 48 s, acceleration = unknown, initial velocity = unknown.","
+    What is the acceleration of an object with a mass of 72 kg that experiences a force of 45 N and has an initial velocity of zero, reaching a final velocity of 98 m/s in a time of 48 seconds?
+    
+    Alternative: How much acceleration does a 72 kg object need to have in order to reach a final velocity of 98 m/s when subjected to a force of 45 N, starting from rest, in a time of 48 seconds?"
+"Generate one physics question using the following elements.
+final velocity = 95 m/s, acceleration = 4 ms^-2, time = 31 s, initial velocity = unknown, distance = unknown.","
+    What is the initial velocity of an object that travels a distance of 285 meters with a final velocity of 95 meters per second and an acceleration of 4 meters per second squared?
+    
+    Alternative: How far does an object travel in 25 seconds if its initial velocity is 12 meters per second and its acceleration is 2 meters per second squared, and its final velocity is 36 meters per second?
+    
+    Alternative: How long does it take for an object to travel 150 meters if its initial velocity is 18 meters per second and its acceleration is 3 meters per second squared, and its final velocity is 42 meters per second?
+    
+    Alternative: What is the acceleration of an object that travels a distance of 120 meters in 20 seconds with an initial velocity of 15 meters per second and a final velocity of 40 meters per second?
+    
+    Alternative: What is the final velocity of an object that travels a distance of 200 meters in 45 seconds with an initial velocity of 10 meters per second and an acceleration of 2 meters per second squared?
+    
+    Alternative: How long does it take for an object to travel a distance of 180 meters with an initial velocity of 21 meters per second and an acceleration of 3 meters per second squared, and what is its final velocity?
+    
+    Alternative: What is the acceleration of an object that travels a distance of 150 meters in 30 seconds with an initial velocity of 12 meters per second and a final velocity of 36 meters per second?
+    
+    Alternative: What is the distance traveled by an object with an initial velocity of 18 meters per second and an acceleration of 2 meters per second squared if its final velocity is 36 meters per second and the time taken is 25 seconds?
+    
+    Alternative: How long does it take for an object to travel a distance of 240 meters with an initial velocity of 24 meters per second and an acceleration of 3 meters per second squared, and what is its final velocity?
+    
+    Alternative: What is the acceleration of an object that travels a distance of 210 meters"

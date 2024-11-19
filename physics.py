@@ -1,6 +1,6 @@
 import json 
-import nltk
 import numpy as np
+import pandas as pd 
 from utils import GraphEquation
 from llm import get_question
 from nltk.corpus import wordnet 
@@ -28,7 +28,7 @@ def generate_question_variables(data):
     logging.debug(problem)
     return problem, eqn
 
-def update_data(filename, data):
+def beautify(filename, data):
     with open(f"{filename}", "w") as file:
         json.dump(data, file, indent=5)
 
@@ -42,16 +42,24 @@ def get_solution(soln):
 
 if __name__ == '__main__':
     TRIALS = 5
-    with open("simple_motion.json") as file:
+    with open("dataset/simple_motion.json") as file:
         data = json.load(file)
+    with open("config.json", "r") as file:
+        env = json.load(file)
+    df = pd.read_csv("dataset/physicsQ.csv")
     for _ in range(TRIALS):
-        problem, soln = generate_question_variables(data)
-        print(f'{Fore.MAGENTA}[PROMPT] {problem}{Style.RESET_ALL}')
+        prompt, soln = generate_question_variables(data)
+        problem = prompt # get_question(prompt)
+        print(f'{Fore.MAGENTA}[PROMPT] {prompt}{Style.RESET_ALL}')
         print(f'{Fore.CYAN}[Soln] {get_solution(soln)}{Style.RESET_ALL}')
-        problem = get_question(problem)
         print(f'{Style.BRIGHT}{Fore.CYAN}Is this question valid[y/n]?\n{Fore.GREEN}{problem}')
         print('\n' + f'{Fore.BLACK}{Back.WHITE}--'*30 + f'{Style.RESET_ALL}' + '\n')
-        ch = 'n' # input()
+        ch = input() if env["BUILD_DATASET"] else 'n'  
         if ch == 'y':
-            data['question_bank'].append(problem)
-        update_data("simple_motion.json", data)
+            with open("dataset/physicsQ.csv", "a") as file:
+                new_row = {'Prompt':prompt, 'Question':problem}
+                df = pd.concat([df, pd.DataFrame([new_row])], ignore_index = True)
+                print(f"{prompt}, {problem}", file = file)
+        beautify("dataset/simple_motion.json", data) 
+    print(df.head().T)
+    df.to_csv("dataset/physicsQ.csv", index = False)
