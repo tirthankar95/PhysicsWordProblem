@@ -1,7 +1,7 @@
 import numpy as np
 import logging
 from collections import defaultdict
-operators = ['+', '*', '=', '/']
+operators = ['+', '*', '=', '/', '^']
 
 def parse(equation):
     elements_ = [var for var in equation.split(' ') if var not in operators]
@@ -25,22 +25,26 @@ class GraphEquation:
                 self.adj[i].extend(allEdges)
     def getEquation(self):
         qid = np.random.randint(len(self.adj))
-        threshold, eqn = 0.5, [qid]
+        threshold, eqn = 0.25, [qid]
         self.vis, unk = defaultdict(bool), defaultdict(bool)
         self.qu = [qid]
         self.vis[qid] = True 
         while len(self.qu):
             src = self.qu.pop(0)
-            # PICK or don't PICK
             if 0.5 + np.random.normal() >= threshold:
                 edgeId = np.random.randint(len(self.adj[src]))
                 edge = self.adj[src][edgeId]
-                unk[edge[-1]] = True 
-                if edge not in self.vis:
+                if edge[-1] in unk: break
+                if edge[0] not in self.vis:
+                    unk[edge[-1]] = True 
                     eqn.append(edge[0])
                     self.qu.append(edge[0])
                     self.vis[edge[0]]
-        unk[np.random.choice(self.equation_element[eqn[-1]])] = True 
+        while True:
+            ch = np.random.choice(self.equation_element[eqn[-1]])
+            if ch not in unk: break 
+        unk[ch] = True
+        assert len(unk) == len(eqn), f'Bad Equation: {unk} {eqn}'
         known = defaultdict(bool)
         for eId in eqn:
             for ch in self.equation_element[eId]:

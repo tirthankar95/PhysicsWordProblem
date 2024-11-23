@@ -5,6 +5,7 @@ from utils import GraphEquation
 from llm import get_question
 from nltk.corpus import wordnet 
 from colorama import Fore, Back, Style 
+from word_change import replace_words
 import logging
 logging.basicConfig(
      level=logging.INFO, 
@@ -13,7 +14,7 @@ logging.basicConfig(
  )
 
 def generate_question_variables(data):
-    equations = data["equations"]
+    equations, units = data["equations"], {}
     obj = GraphEquation(equations)
     unknown, known, eqn = obj.getEquation()
     problem = "Generate one physics question using the following elements.\n"
@@ -21,12 +22,13 @@ def generate_question_variables(data):
         name, v_range, unit =  data['variable_names'][element]
         var = np.random.randint(v_range[0], v_range[1])
         problem += f"{name} = {var} {unit}, "
+        units[unit] = True
     for idx, element in enumerate(unknown):
         name, v_range, unit = data['variable_names'][element]
         if idx < len(unknown)-1: problem += f"{name} = unknown, "
         else: problem += f"{name} = unknown."
     logging.debug(problem)
-    return problem, eqn
+    return problem, eqn, units
 
 def beautify(filename, data):
     with open(f"{filename}", "w") as file:
@@ -41,15 +43,16 @@ def get_solution(soln):
     return solution
 
 if __name__ == '__main__':
-    TRIALS = 5
+    TRIALS = 20
     with open("dataset/simple_motion.json") as file:
         data = json.load(file)
     with open("config.json", "r") as file:
         env = json.load(file)
     df = pd.read_csv("dataset/physicsQ.csv")
     for _ in range(TRIALS):
-        prompt, soln = generate_question_variables(data)
+        prompt, soln, units = generate_question_variables(data)
         problem = prompt # get_question(prompt)
+        problem = replace_words(problem, units)
         print(f'{Fore.MAGENTA}[PROMPT] {prompt}{Style.RESET_ALL}')
         print(f'{Fore.CYAN}[Soln] {get_solution(soln)}{Style.RESET_ALL}')
         print(f'{Style.BRIGHT}{Fore.CYAN}Is this question valid[y/n]?\n{Fore.GREEN}{problem}')
