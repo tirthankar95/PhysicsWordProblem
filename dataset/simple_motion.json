@@ -2,7 +2,7 @@
      "topic": "simple laws of motion",
      "equations": [
           "v = u + a * t",
-          "S = u * t + 0.5 * a * t",
+          "S = u * t + 0.5 * a * t ^ 2",
           "F = m * a"
      ],
      "variable_names": {
