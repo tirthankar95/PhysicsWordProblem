@@ -1,4 +1,5 @@
 import numpy as np
+import json
 import logging
 from collections import defaultdict
 operators = ['+', '*', '=', '/', '^']
@@ -54,6 +55,35 @@ class GraphEquation:
         logging.debug(f'{unk}, {known}')
         return unk, known, eqn
     
-
-
+class Env:
+    def __init__(self):
+        with open("Entity/env.json", "r") as file:
+            self.data = json.load(file)
+            self.envs = [k for k in self.data]
+            self.prefix = "Complete the physics question below.\n"
+    def get_topic_words(self):
+        units = []
+        env = self.envs[np.random.randint(len(self.data))]
+        topic_words = f"In a {env}, "
+        for words in self.data[env]["topic_words"]:
+            topic_words += words + ", "
+        two_d = True if np.random.normal() >= -0.5 else False # (1: Enable, 0: Disbale) 2D
+        for attribute, v in self.data[env].items():
+            # An attribute can be skipped or not to increase the variability.
+            if attribute == "topic_words" or \
+               np.random.normal() > 0: continue 
+            v_range, unit, type = v 
+            type = 0 if type == "S" else 1 # (0: scaler, 1: vector)
+            var = np.random.randint(v_range[0], v_range[1])
+            if two_d and type == 1: 
+                theta = np.random.randint(0, 180)
+                topic_words += f"{env} {attribute} = {var} {unit} at an angle {theta} degrees with the horizontal, "
+            else:
+                topic_words += f"{env} {attribute} = {var} {unit}, "
+            if unit not in units: units.append(unit)
+        return self.prefix + " " + topic_words[:-2]+".", units
     
+if __name__ == '__main__':
+    obj_env = Env()
+    topic_words, units = obj_env.get_topic_words()
+    print(topic_words, units)

@@ -10,6 +10,6 @@ def get_question(prompt):
         input_ids,
         do_sample=True,
         temperature=0.1,
-        max_length=100,
+        max_length=256,
     )
     return tokenizer.batch_decode(gen_tokens)[0]
