@@ -3,9 +3,9 @@ import numpy as np
 import pandas as pd 
 from utils import GraphEquation, Env
 from llm import get_question
-from nltk.corpus import wordnet 
 from colorama import Fore, Back, Style 
 from word_change import replace_words
+from utils import load_env_vars
 import logging
 logging.basicConfig(
      level=logging.INFO, 
@@ -54,7 +54,8 @@ def get_solution(soln):
     return solution
 
 if __name__ == '__main__':
-    TRIALS = 20
+    load_env_vars()
+    TRIALS = 1
     env_obj = Env()
     with open("dataset/simple_motion.json") as file:
         data = json.load(file)
@@ -72,10 +73,10 @@ if __name__ == '__main__':
         print(f'{Fore.CYAN}[HINT] {get_solution(soln)}{Style.RESET_ALL}')
         print(f'{Style.BRIGHT}{Fore.CYAN}Is this question valid[y/n]?\n{Fore.GREEN}{problem}')
         print('\n' + f'{Fore.BLACK}{Back.WHITE}--'*30 + f'{Style.RESET_ALL}' + '\n')
-        ch = input() if env["BUILD_DATASET"] else 'n'  
+        ch = 'y' #input() if env["BUILD_DATASET"] else 'n'  
         if ch == 'y':
             with open("dataset/physicsQ.csv", "a") as file:
-                new_row = {'Prompt':prompt, 'Question':problem}
+                new_row = {'Prompt':final_prompt, 'Question':problem}
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index = True)
                 print(f"{final_prompt}, {problem}", file = file)
         beautify("dataset/simple_motion.json", data) 

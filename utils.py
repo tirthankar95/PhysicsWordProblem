@@ -2,6 +2,16 @@ import numpy as np
 import json
 import logging
 from collections import defaultdict
+import json 
+import os 
+
+def load_env_vars():
+    with open("config.json", "r") as file:
+        env = json.load(file)
+    for k, v in env.items():
+        if k[-3:] == "KEY" or k[-5:] == "TOKEN":
+            os.environ[k] = v 
+
 operators = ['+', '*', '=', '/', '^']
 
 def parse(equation):
@@ -60,7 +70,7 @@ class Env:
         with open("Entity/env.json", "r") as file:
             self.data = json.load(file)
             self.envs = [k for k in self.data]
-            self.prefix = "Complete the physics question below.\n"
+            self.prefix = "Give me a physics question using the following variables and words.\n\n"
     def get_topic_words(self):
         units = []
         env = self.envs[np.random.randint(len(self.data))]
