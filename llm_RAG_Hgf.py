@@ -1,14 +1,6 @@
-import os
-import json 
 from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
-
-def load_env_vars():
-    with open("config.json", "r") as file:
-        env = json.load(file)
-    for k, v in env.items():
-        os.environ[k] = v  
 
 def StopHallucinations(response):
     return response.split("Question:")[0]

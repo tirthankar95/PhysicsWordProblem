@@ -2,10 +2,14 @@ import nltk
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize 
 from nltk import pos_tag
-nltk.download('averaged_perceptron_tagger_eng')
+
 
 def is_noun(word):
-    pos_tagged = pos_tag([word])
+    try:
+        pos_tagged = pos_tag([word])
+    except:
+        nltk.download('averaged_perceptron_tagger_eng')
+        pos_tagged = pos_tag([word])
     tag = pos_tagged[0][1]
     noun_tags = ['NN', 'NNS', 'NNP', 'NNPS']
     return tag in noun_tags
