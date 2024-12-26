@@ -2,3 +2,4 @@ config.json
 configOld.json
 __pycache__/
 
+*.bin
