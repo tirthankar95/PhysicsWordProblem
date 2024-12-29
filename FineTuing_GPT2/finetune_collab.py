@@ -136,7 +136,7 @@ def load_model():
     try:
         tokenizer = GPT2Tokenizer.from_pretrained(os.path.join('./save_model/'))
         configuration = GPT2Config.from_pretrained(os.path.join('./save_model/', 'config.json'), output_hidden_states=False)
-        model = GPT2LMHeadModel.from_pretrained(os.path.join('./save_model/', 'pytorch_model.bin'), config = configuration)
+        model = GPT2LMHeadModel.from_pretrained(os.path.join('./save_model/'), config = configuration)
     except: pass     
     return model, tokenizer
 
@@ -221,5 +221,5 @@ def GENERATE(prompt):
 #                   MAIN
 # ==========================================
 if __name__ == '__main__':
-    TRAIN_SAVE(epochs = 0)
-    GENERATE('<|start|>')
+    TRAIN_SAVE(epochs = 1)
+    GENERATE('The sun will')
