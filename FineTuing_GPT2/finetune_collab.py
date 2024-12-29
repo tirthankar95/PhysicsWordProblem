@@ -65,8 +65,7 @@ def prepare_spam_data(debug = False, batch_size = 2):
     return train_loader, validation_loader, tokenizer
 
 
-def finetune(model, train_loader, validation_loader):
-    epochs = 5
+def finetune(model, train_loader, validation_loader, epochs = 5):
     learning_rate = 5e-4
     warmup_steps = 1e2
     epsilon = 1e-8
@@ -128,7 +127,7 @@ def finetune(model, train_loader, validation_loader):
         avg_loss = total_val_loss / len(validation_loader)
         print(f'Time: {round(time.time() - t0, 3)} sec, Avg Loss: {round(avg_loss, 4)}')
         stats["validation_loss"].append(avg_loss)
-    print(f'------ Training Completed ------ {round(time.time() - tbegin), 3} sec.')
+    print(f'------ Training Completed ------ {round(time.time() - tbegin, 3)} sec.')
     return stats
 
 
@@ -142,7 +141,7 @@ def load_model():
     return model, tokenizer
 
 
-def TRAIN_SAVE():
+def TRAIN_SAVE(epochs = 5):
     # ==========================================
     #  Load Tokenizer, Model & Prepare Data
     # ==========================================
@@ -162,22 +161,23 @@ def TRAIN_SAVE():
     # ==========================================
     #                Fine Tune
     # ==========================================
-    stats = finetune(model, train_loader, validation_loader)
+    stats = finetune(model, train_loader, validation_loader, epochs)
     # ==========================================
     #             Display Results
     # ==========================================
-    sns.set(style='darkgrid')
-    stats_df = pd.DataFrame(stats)
-    plt.figure(figsize=(10, 6))
-    sns.lineplot(data = stats_df, x = range(stats_df.shape[0]), y = 'training_loss', \
-                label = 'training_loss', color = 'blue', marker = 'o')
-    sns.lineplot(data = stats_df, x = range(stats_df.shape[0]), y = 'validation_loss', \
-                label = 'validation_loss', color = 'red', marker = 's')
-    plt.legend()
-    plt.xlabel('Epochs')
-    plt.ylabel('Loss')
-    plt.savefig(os.path.join('plots', 'TrainVal.png'))
-    plt.clf()
+    if len(stats['training_loss']):
+        sns.set(style='darkgrid')
+        stats_df = pd.DataFrame(stats)
+        plt.figure(figsize=(10, 6))
+        sns.lineplot(data = stats_df, x = range(stats_df.shape[0]), y = 'training_loss', \
+                    label = 'training_loss', color = 'blue', marker = 'o')
+        sns.lineplot(data = stats_df, x = range(stats_df.shape[0]), y = 'validation_loss', \
+                    label = 'validation_loss', color = 'red', marker = 's')
+        plt.legend()
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.savefig(os.path.join('plots', 'TrainVal.png'))
+        plt.clf()
     params = list(model.named_parameters())
     print(f'GPT2 model has {len(params)} named parameters.')
     print('\n============ Embedding Layer ============')
@@ -221,5 +221,5 @@ def GENERATE(prompt):
 #                   MAIN
 # ==========================================
 if __name__ == '__main__':
-    TRAIN_SAVE()
+    TRAIN_SAVE(epochs = 0)
     GENERATE('<|start|>')

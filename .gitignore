@@ -3,3 +3,4 @@ configOld.json
 __pycache__/
 
 *.bin
+*.safetensors
