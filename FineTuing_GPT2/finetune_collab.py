@@ -1,3 +1,5 @@
+from secrets import token_bytes
+import tokenize
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import pandas as pd 
@@ -130,6 +132,16 @@ def finetune(model, train_loader, validation_loader):
     return stats
 
 
+def load_model():
+    model, tokenizer = None, None
+    try:
+        tokenizer = GPT2Tokenizer.from_pretrained(os.path.join('./save_model/'))
+        configuration = GPT2Config.from_pretrained(os.path.join('./save_model/', 'config.json'), output_hidden_states=False)
+        model = GPT2LMHeadModel.from_pretrained(os.path.join('./save_model/', 'pytorch_model.bin'), config = configuration)
+    except: pass     
+    return model, tokenizer
+
+
 def TRAIN_SAVE():
     # ==========================================
     #  Load Tokenizer, Model & Prepare Data
@@ -142,8 +154,11 @@ def TRAIN_SAVE():
     Instead, the model is loaded into memory and available as a Python object (model). 
     The source of the weights depends on the context:
     '''
-    model = GPT2LMHeadModel.from_pretrained('gpt2', config = configurations)
-    model.resize_token_embeddings(len(tokenizer))
+    model, tokenizer_bk = load_model()
+    if model == None:
+        model = GPT2LMHeadModel.from_pretrained('gpt2', config = configurations)
+        model.resize_token_embeddings(len(tokenizer))
+    else: tokenizer = tokenizer_bk
     # ==========================================
     #                Fine Tune
     # ==========================================
@@ -185,11 +200,11 @@ def TRAIN_SAVE():
 
 
 def GENERATE(prompt):
-    tokenizer = GPT2Tokenizer.from_pretrained(os.path.join('./save_model/'))
-    configuration = GPT2Config.from_pretrained(os.path.join('./save_model/', 'config.json'), output_hidden_states=False)
-    model = GPT2LMHeadModel.from_pretrained(os.path.join('./save_model/', 'pytorch_model.bin'), config = configuration)
-    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model, tokenizer = load_model()
+    if model == None:
+        print(f'{Fore.RED}======== NO MODEL FOUND ========{Style.RESET_ALL}')
+        return 
     model.eval()
     prompt_tokens = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)
     sample_outputs = model.generate(prompt_tokens,\
