@@ -1,7 +1,6 @@
-config.json
-configOld.json
 __pycache__/
-
 *.bin
 *.safetensors
-/LLM_CONFIG
+/LLM_CONFIG/configGPT2.json
+/LLM_CONFIG/configLLM_RAG.json
+/LLM_CONFIG/configOpenAI.json

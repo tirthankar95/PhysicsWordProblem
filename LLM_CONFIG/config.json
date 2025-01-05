@@ -1,0 +1,13 @@
+{
+    "LANGCHAIN_TRACING_V2": true,
+    "LANGCHAIN_ENDPOINT": "https://api.smith.langchain.com",
+    "LANGCHAIN_API_KEY": "X",
+    "OPENAI_API_KEY": "X",
+    "HUGGINGFACEHUB_API_TOKEN": "X",
+    "BUILD_DATASET": true,
+    "LLM_MODEL": {
+        "MAIN_MODEL":  "llm_OpenAI",
+        "INNER_MODEL": "gpt-3.5-turbo-instruct"
+    }
+}
+
