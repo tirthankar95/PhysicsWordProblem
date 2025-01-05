@@ -1,6 +1,10 @@
 import json 
 import numpy as np
 import pandas as pd 
+import sys 
+sys.path.insert(0, "LLM")
+sys.path.insert(0, "LLM_CONFIG")
+sys.path.insert(0, "UTILS")
 from utils import GraphEquation, Env
 from llm import get_question
 from colorama import Fore, Back, Style 
@@ -57,11 +61,11 @@ if __name__ == '__main__':
     load_env_vars()
     TRIALS = 1
     env_obj = Env()
-    with open("dataset/simple_motion.json") as file:
+    with open("TOPICS/simple_motion.json") as file:
         data = json.load(file)
-    with open("config.json", "r") as file:
+    with open("LLM_CONFIG/config.json", "r") as file:
         env = json.load(file)
-    df = pd.read_csv("dataset/physicsQ.csv")
+    df = pd.read_csv("DATASET/physicsQ.csv")
     for _ in range(TRIALS):
         prompt, soln, units_p = generate_question_variables(data)
         topic_words, units_t = env_obj.get_topic_words() 
@@ -73,12 +77,15 @@ if __name__ == '__main__':
         print(f'{Fore.CYAN}[HINT] {get_solution(soln)}{Style.RESET_ALL}')
         print(f'{Style.BRIGHT}{Fore.CYAN}Is this question valid[y/n]?\n{Fore.GREEN}{problem}')
         print('\n' + f'{Fore.BLACK}{Back.WHITE}--'*30 + f'{Style.RESET_ALL}' + '\n')
-        ch = 'y' #input() if env["BUILD_DATASET"] else 'n'  
-        if ch == 'y':
-            with open("dataset/physicsQ.csv", "a") as file:
+        if env["BUILD_DATASET"]:
+            with open("DATASET/physicsQ.csv", "a") as file:
                 new_row = {'Prompt':final_prompt, 'Question':problem}
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index = True)
                 print(f"{final_prompt}, {problem}", file = file)
-        beautify("dataset/simple_motion.json", data) 
-    print(df.head().T)
-    df.to_csv("dataset/physicsQ.csv", index = False)
+        beautify("TOPICS/simple_motion.json", data) 
+    df.to_csv("DATASET/physicsQ.csv", index = False)
+
+#         final_prompt = """Give me a physics question using the following variables and words.
+
+#  In a cave, person, ball, rock, cave length = 1271 m. displacement = 47 m, time = 62 s, final velocity = 53 m/s, force = 80 N, initial velocity = unknown, acceleration = unknown, mass = unknown.
+# """

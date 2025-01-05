@@ -6,7 +6,7 @@ import json
 import os 
 
 def load_env_vars():
-    with open("config.json", "r") as file:
+    with open("LLM_CONFIG/config.json", "r") as file:
         env = json.load(file)
     for k, v in env.items():
         if k[-3:] == "KEY" or k[-5:] == "TOKEN":
@@ -67,7 +67,7 @@ class GraphEquation:
     
 class Env:
     def __init__(self):
-        with open("Entity/env.json", "r") as file:
+        with open("ENTITY/env.json", "r") as file:
             self.data = json.load(file)
             self.envs = [k for k in self.data]
             self.prefix = "Give me a physics question using the following variables and words.\n\n"

@@ -23,3 +23,8 @@ A person standing on a train traveling at an initial velocity of 17 m/s at an an
 
  In a train, on a bridge, person, ball, train velocity = 49 m/s, train length = 651 m. final velocity = 24 m/s at an angle 29 degrees with the horizontal, initial velocity = 11 m/s at an angle 55 degrees with the horizontal, time = 76 s, mass = 87 kg, horizontal component of acceleration = unknown, vertical component of acceleration = unknown, horizontal component of force = unknown, vertical component of force = unknown.","
 A person standing on a train traveling at a velocity of 49 m/s across a 651 m long bridge throws a ball with a mass of 87 kg. If the ball has an initial velocity of 11 m/s at an angle of 55 degrees with the horizontal and lands with a final velocity of 24 m/s at an angle of 29 degrees with the horizontal, what are the unknown horizontal and vertical components of acceleration and force acting on the ball during its 76 second flight?"
+"Give me a physics question using the following variables and words.
+
+ In a cave, person, ball, rock, cave length = 1271 m. displacement = 47 m, time = 62 s, final velocity = 53 m/s, force = 80 N, initial velocity = unknown, acceleration = unknown, mass = unknown.
+","
+If a person standing at one end of a cave throws a ball with a force of 80 N towards a rock on the other end of the cave, with a displacement of 47 m and a time of 62 s, what is the initial velocity of the ball and what is the mass of the rock if the cave length is 1271 m and the final velocity of the ball upon impact is 53 m/s? Assume the ball and rock have the same acceleration."

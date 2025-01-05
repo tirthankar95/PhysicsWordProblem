@@ -2,7 +2,7 @@ import json
 from colorama import Style, Fore
 import llm_GPT2, llm_RAG_Hgf, llm_OpenAI
 
-with open("config.json", "r") as file:
+with open("LLM_CONFIG/config.json", "r") as file:
     data = json.load(file)
 
 def get_question(question):
