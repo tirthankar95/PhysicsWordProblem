@@ -251,6 +251,7 @@ def GENERATE(prompt):
         print(f'{Fore.RED}======== NO MODEL FOUND ========{Style.RESET_ALL}')
         return 
     model.eval()
+    model = model.to(device)
     prompt_tokens = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0).to(device)
     sample_outputs = model.generate(prompt_tokens,\
                                     do_sample = True,\
