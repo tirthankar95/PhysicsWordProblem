@@ -1,8 +1,7 @@
-from secrets import token_bytes
-import tokenize
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import pandas as pd 
+import numpy as np 
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset, random_split
 import os 
@@ -12,25 +11,71 @@ from colorama import Style, Fore
 import time
 import torch
 
+# def prepare_spam_data(debug = False, batch_size = 2):
+#     df = pd.read_csv(os.path.join("dataset", "spam.csv"), encoding='latin1')
+#     df_ham = df[df['v1'] == 'ham'][['v2']]
+#     '''
+#     It handles punctuation intelligently (e.g., separating punctuation from words).
+#     It accounts for contractions (e.g., "don't" is split into ["do", "n't"]).
+#     '''
+#     # df_ham['sentence'] = df_ham['v2'].apply(lambda sentence: nltk.word_tokenize(sentence))
+#     df_ham['sentence'] = df_ham['v2']
+#     df_ham.drop(columns = ['v2'], axis = 1, inplace = True)
+#     df_ham['length'] = df_ham['sentence'].apply(lambda x: len(x))
+#     if debug:
+#         sns.histplot(data = df_ham, x = 'length', kde = True)
+#         plt.xlabel('Length of sentence.')
+#         plt.savefig(os.path.join('plots', 'SentenceLength.png'))
+#         plt.clf()
+#     class CustomDataset(Dataset):
+#         def __init__(self, txt_list, tokenizer, max_length = 128):
+#             self.input_ids, self.attn_masks = [], []
+#             for txt in txt_list:
+#                 encoding_dict = tokenizer('<|start|>' + txt + '<|end|>', \
+#                                           truncation = True, \
+#                                           padding = 'max_length', \
+#                                           max_length = max_length)
+#                 self.input_ids.append(encoding_dict['input_ids'])
+#                 self.attn_masks.append(encoding_dict['attention_mask'])
+#         def __len__(self):
+#             return len(self.input_ids)
+#         def __getitem__(self, idx):
+#             return self.input_ids[idx], self.attn_masks[idx]
+#     '''
+#         In GPT-2, the default value for tokenizer.bos_token_id is None 
+#         because GPT-2 does not use a beginning-of-sequence (BOS) token by default.
+#     '''
+#     tokenizer = GPT2Tokenizer.from_pretrained('gpt2', bos_token='<|start|>', \
+#                                               eos_token='<|end|>', pad_token='<|pad|>')
+#     print(f'{Fore.CYAN}[TOKNIZR] Mx model length: {tokenizer.model_max_length}. '+\
+#           f'GPT small: 768{Style.RESET_ALL}')
+#     print(f'{Fore.CYAN}[TOKNIZR] Beginning of seq: {tokenizer.decode(tokenizer.bos_token_id)}, '+\
+#           f'has token id: {tokenizer.bos_token_id}{Style.RESET_ALL}')
+#     print(f'{Fore.CYAN}[TOKNIZR] End of seq: {tokenizer.decode(tokenizer.eos_token_id)}, '+\
+#           f'has token id: {tokenizer.eos_token_id}{Style.RESET_ALL}')
+#     print(f'{Fore.CYAN}[TOKNIZR] Padding of seq: {tokenizer.decode(tokenizer.pad_token_id)}, '+\
+#           f'has token id: {tokenizer.pad_token_id}{Style.RESET_ALL}')
+#     dataset = CustomDataset(df_ham['sentence'], tokenizer)
+#     tr_size = int(0.95 * len(dataset))
+#     train_dataset, validation_dataset = random_split(dataset, [tr_size, len(dataset) - tr_size])
+#     train_loader = DataLoader(train_dataset, shuffle = True, batch_size = batch_size)
+#     validation_loader = DataLoader(validation_dataset, shuffle = False, batch_size = batch_size)
+#     return train_loader, validation_loader, tokenizer
 
-def prepare_spam_data(debug = False, batch_size = 2):
-    df = pd.read_csv(os.path.join("dataset", "spam.csv"), encoding='latin1')
-    df_ham = df[df['v1'] == 'ham'][['v2']]
-    '''
-    It handles punctuation intelligently (e.g., separating punctuation from words).
-    It accounts for contractions (e.g., "don't" is split into ["do", "n't"]).
-    '''
-    # df_ham['sentence'] = df_ham['v2'].apply(lambda sentence: nltk.word_tokenize(sentence))
-    df_ham['sentence'] = df_ham['v2']
-    df_ham.drop(columns = ['v2'], axis = 1, inplace = True)
-    df_ham['length'] = df_ham['sentence'].apply(lambda x: len(x))
+def prepare_data(debug = False, batch_size = 2):
+    df = pd.read_csv(os.path.join("dataset", "physicsQ.csv"), encoding='latin1')
+    df_ham = df.copy()
+    df_ham["Prompt"] = df_ham["Prompt"] + df_ham["Question"]
+    df_ham.rename(columns = {"Prompt":"sentence"}, inplace = True)
+    df_ham.drop(columns = ["Question"], inplace = True)
+    df_ham['length'] = df_ham['sentence'].apply(lambda x: len(x.split()))
     if debug:
         sns.histplot(data = df_ham, x = 'length', kde = True)
         plt.xlabel('Length of sentence.')
         plt.savefig(os.path.join('plots', 'SentenceLength.png'))
         plt.clf()
     class CustomDataset(Dataset):
-        def __init__(self, txt_list, tokenizer, max_length = 128):
+        def __init__(self, txt_list, tokenizer, max_length = 256):
             self.input_ids, self.attn_masks = [], []
             for txt in txt_list:
                 encoding_dict = tokenizer('<|start|>' + txt + '<|end|>', \
@@ -145,7 +190,7 @@ def TRAIN_SAVE(epochs = 5):
     # ==========================================
     #  Load Tokenizer, Model & Prepare Data
     # ==========================================
-    train_loader, validation_loader, tokenizer = prepare_spam_data()
+    train_loader, validation_loader, tokenizer = prepare_data()
     configurations = GPT2Config.from_pretrained('gpt2', output_hidden_states = False)
     print(f'{Fore.GREEN}[GPT2]:\n{configurations}{Style.RESET_ALL}')
     '''
@@ -222,4 +267,7 @@ def GENERATE(prompt):
 # ==========================================
 if __name__ == '__main__':
     TRAIN_SAVE(epochs = 1)
-    GENERATE('The sun will')
+    # Prompt 1
+    df = pd.read_csv(os.path.join("dataset", "physicsQ.csv"), encoding = "latin1")
+    idx = np.random.randint(0, df.shape[0])
+    GENERATE(df.iloc[idx]["Prompt"])
