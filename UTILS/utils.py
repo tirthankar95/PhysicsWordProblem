@@ -5,6 +5,11 @@ from collections import defaultdict
 import json 
 import os 
 
+def fix(no):
+    exponent = int(np.log10(abs(no)))
+    if exponent < 5: return round(no, 2)
+    return f"{no:.2e}"
+
 def load_env_vars():
     with open("LLM_CONFIG/config.json", "r") as file:
         env = json.load(file)
@@ -12,10 +17,10 @@ def load_env_vars():
         if k[-3:] == "KEY" or k[-5:] == "TOKEN":
             os.environ[k] = v 
 
-operators = ['+', '*', '=', '/', '^']
+operators = ['+', '*', '=', '/', '^', '(', ')', '-']
 
 def parse(equation):
-    elements_ = [var for var in equation.split(' ') if var not in operators]
+    elements_ = [var for var in equation.split(' ') if var not in operators and len(var.strip()) > 0]
     elements = []
     for x in elements_:
         try: var = float(x)
@@ -66,13 +71,14 @@ class GraphEquation:
         return unk, known, eqn
     
 class Env:
-    def __init__(self):
-        with open("ENTITY/env.json", "r") as file:
+    def __init__(self, filename):
+        with open(f"ENTITY/{filename}", "r") as file:
             self.data = json.load(file)
             self.envs = [k for k in self.data]
-            self.prefix = "Give me a physics question using the following variables and words.\n\n"
+            self.prefix = "Give me a physics question using the following variables and words.\n\n"    
     def get_topic_words(self):
         units = []
+        if len(self.data) == 0: return self.prefix, units
         env = self.envs[np.random.randint(len(self.data))]
         topic_words = f"In a {env}, "
         for words in self.data[env]["topic_words"]:
@@ -84,7 +90,7 @@ class Env:
                np.random.normal() > 0: continue 
             v_range, unit, type = v 
             type = 0 if type == "S" else 1 # (0: scaler, 1: vector)
-            var = np.random.randint(v_range[0], v_range[1])
+            var = fix(np.random.uniform(v_range[0], v_range[1]))
             if two_d and type == 1: 
                 theta = np.random.randint(0, 180)
                 topic_words += f"{env} {attribute} = {var} {unit} at an angle {theta} degrees with the horizontal, "
@@ -94,6 +100,6 @@ class Env:
         return self.prefix + " " + topic_words[:-2]+".", units
     
 if __name__ == '__main__':
-    obj_env = Env()
+    obj_env = Env("env_sm.json")
     topic_words, units = obj_env.get_topic_words()
     print(topic_words, units)

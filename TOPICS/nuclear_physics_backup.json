@@ -1,0 +1,101 @@
+{
+    "topic":"nuclear physics",
+    "equations":[
+        "P = Z * p",
+        "N = ( A - Z ) * n",
+        "M = P + N - m",
+        "B = M * c ^ 2"
+    ],
+    "variable_names":{
+        "Z":[
+                "atomic number",
+                [
+                    1,
+                    118
+                ],
+                "",
+                "S"
+            ],
+        "A":[
+                "mass number",
+                [
+                    1,
+                    294
+                ],
+                "",
+                "S"
+            ],
+        "p":[
+                "mass of a proton",
+                [
+                    1.00783,
+                    1.00783
+                ],
+                "u",
+                "S"
+            ],
+        "n":[
+                "mass of a neutron",
+                [
+                    1.00867,
+                    1.00867
+                ],
+                "u",
+                "S"
+            ],
+        "P":[
+                "mass of protons",
+                [
+                    1,
+                    119
+                ],
+                "u",
+                "S"
+            ],
+        "N":[
+                "mass of neutrons",
+                [
+                    1,
+                    177
+                ],
+                "u",
+                "S"
+            ],
+        "m":[
+                "mass of element",
+                [
+                    1,
+                    294
+                ],
+                "u",
+                "S"
+            ],
+        "M":[
+                "mass defect",
+                [
+                    0.1,
+                    10
+                ],
+                "u",
+                "S"
+            ],
+        "c":[
+                "speed of light",
+                [
+                    3e8,
+                    3e8
+                ],
+                "m/s",
+                "S"
+            ],
+        "B":[
+                "binding Energy",
+                [
+                    1e-12,
+                    10
+                ],
+                "MeV",
+                "S"
+            ]
+    }
+}

@@ -1,0 +1,102 @@
+{
+     "topic": "gravitaion",
+     "equations": [
+          "F = ( G * m1 * m2 ) / ( r ^ 2 )",
+          "U = F * r",
+          "V = U / m1",
+          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )"
+     ],
+     "variable_names": {
+          "G": [
+               "gravitational constant",
+               [
+                    6.67e-11,
+                    6.67e-11
+               ],
+               "Nm^2kg^-2",
+               "S"
+          ],
+          "m1": [
+               "mass of body 1",
+               [
+                    10e20,
+                    10e30
+               ],
+               "kg",
+               "S"
+               ],
+          "m2": [
+               "mass of body 2",
+               [
+                    10e20,
+                    10e30
+               ],
+               "kg",
+               "S"
+          ],
+          "r": [
+               "distance between two bodies",
+               [
+                    10e5,
+                    10e15
+               ],
+               "m",
+               "V"
+          ],
+          "r1": [
+               "distance between two bodies",
+               [
+                    10e5,
+                    10e15
+               ],
+               "m",
+               "V"
+          ],
+          "U": [
+               "gravitational potential energy",
+               [
+                    -10e24,
+                    -10e28
+               ],
+               "J",
+               "S"
+          ],
+          "V": [
+               "gravitational potential",
+               [
+                    -10e1,
+                    -10e2
+               ],
+               "Jkg^-1",
+               "S"
+               
+          ],
+          "F": [
+               "force",
+               [
+                    10e9,
+                    10e20
+               ],
+               "N",
+               "V"
+          ],
+          "T1": [
+               "kepler orbital period",
+               [
+                    2,
+                    1000
+               ],
+               "years",
+               "S"
+          ],
+          "T2": [
+               "kepler orbital period",
+               [
+                    2,
+                    1000
+               ],
+               "years",
+               "S"
+          ]
+     }
+}
