@@ -62,7 +62,7 @@ def get_solution(soln, data):
 
 def get_phyQ(topic):
     load_env_vars()
-    TRIALS = 1
+    TRIALS = 25
     env_obj = Env(topic.env_name)
     with open(f"TOPICS/{topic.in_file}") as file:
         data = json.load(file)

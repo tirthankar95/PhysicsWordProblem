@@ -4,9 +4,19 @@
           "F = ( G * m1 * m2 ) / ( r ^ 2 )",
           "U = F * r",
           "V = U / m1",
-          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )"
+          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )",
+          "E = 0.5 * m1 * v ^ 2 + U"
      ],
      "variable_names": {
+          "E": [
+               "total mechanical energy",
+               [
+                    1e+30,
+                    1e+32
+               ],
+               "J",
+               "S"
+          ],
           "G": [
                "gravitational constant",
                [
@@ -19,17 +29,17 @@
           "m1": [
                "mass of body 1",
                [
-                    10e20,
-                    10e30
+                    1e+21,
+                    1e+31
                ],
                "kg",
                "S"
-               ],
+          ],
           "m2": [
                "mass of body 2",
                [
-                    10e20,
-                    10e30
+                    1e+21,
+                    1e+31
                ],
                "kg",
                "S"
@@ -37,8 +47,8 @@
           "r": [
                "distance between two bodies",
                [
-                    10e5,
-                    10e15
+                    1000000.0,
+                    1e+16
                ],
                "m",
                "V"
@@ -46,8 +56,8 @@
           "r1": [
                "distance between two bodies",
                [
-                    10e5,
-                    10e15
+                    1000000.0,
+                    1e+16
                ],
                "m",
                "V"
@@ -55,8 +65,8 @@
           "U": [
                "gravitational potential energy",
                [
-                    -10e24,
-                    -10e28
+                    -1e+25,
+                    -1e+29
                ],
                "J",
                "S"
@@ -64,18 +74,17 @@
           "V": [
                "gravitational potential",
                [
-                    -10e1,
-                    -10e2
+                    -100.0,
+                    -1000.0
                ],
                "Jkg^-1",
                "S"
-               
           ],
           "F": [
                "force",
                [
-                    10e9,
-                    10e20
+                    10000000000.0,
+                    1e+21
                ],
                "N",
                "V"
@@ -97,6 +106,15 @@
                ],
                "years",
                "S"
+          ],
+          "v": [
+               "velocity",
+               [
+                    50000.0,
+                    500000.0
+               ],
+               "m/s",
+               "V"
           ]
      }
 }

@@ -4,9 +4,19 @@
           "F = ( G * m1 * m2 ) / ( r ^ 2 )",
           "U = F * r",
           "V = U / m1",
-          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )"
+          "r = ( T1 ^ 2 ) * r1 / ( T2 ^ 2 )",
+          "E = 0.5 * m1 * v ^ 2 + U"
      ],
      "variable_names": {
+          "E": [
+               "total mechanical energy",
+               [
+                    1e+30,
+                    1e+32
+               ],
+               "J",
+               "S"
+          ],
           "G": [
                "gravitational constant",
                [
@@ -96,6 +106,15 @@
                ],
                "years",
                "S"
+          ],
+          "v": [
+               "velocity",
+               [
+                    50000.0,
+                    500000.0
+               ],
+               "m/s",
+               "V"
           ]
      }
 }

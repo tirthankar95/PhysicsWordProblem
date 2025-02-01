@@ -1,4 +1,73 @@
 {
-   
+    "Milky Way":
+    {   
+        "stars": [
+            [
+                1e9, 
+                1e12
+            ],
+            "",
+            ""
+        ],
+        "topic_words":[
+            "stars",
+            "black hole", 
+            "distance",
+            "attraction",
+            "gravitational"
+        ]
+    },
+    "Andromeda":
+    {     
+        "stars": [
+            [
+                1e9, 
+                1e12
+            ],
+            "",
+            ""
+        ],
+        "topic_words":[
+            "planet X32", 
+            "planet X99",
+            "distance in between",
+            "force of attraction", 
+            "gravitational potential"
+        ]
+    },
+   "Solar System":
+   {
+        "planets":[
+            [
+                8, 
+                9
+            ],
+            "",
+            ""
+        ],
+        "topic_words":[
+            "earth", 
+            "moon",
+            "separation",
+            "force acting between"
+        ]
+   },
+   "Solar System(B)":
+   {
+        "planets":[
+            [
+                5, 
+                25
+            ],
+            "",
+            ""
+        ],
+        "topic_words":[
+            "kepler-22b", 
+            "proxima centauri(b)",
+            "separation",
+            "force acting between",
+            "gravitational potential"
+        ]
+   }
 }
-        
