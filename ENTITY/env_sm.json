@@ -54,6 +54,10 @@
             "S"
         ],
         "topic_words": ["person", "ball", "rock"]
+    },
+    "ground":
+    {
+        "topic_words": ["friction", "thrown up", "air resistance", "acceleration due to gravity"]
     }
 }
         
